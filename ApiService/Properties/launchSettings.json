@@ -1,41 +1,25 @@
 ﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:59315",
-      "sslPort": 44323
-    }
-  },
   "profiles": {
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5137",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7207;http://localhost:5137",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:1949;http://localhost:1950",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=SPC\\PUBLICDB;Initial Catalog=HiringProject;Integrated Security=True;Connect Timeout=5;Encrypt=False;"
+  },
+
+  "JwtSettings": {
+    "SecretKey": "cfef81f30169fbffbcc542117cf97bc424f55399bfe8ea70775dec0df394dfc5d369a2de620af6a52771d41ffa190748d646e9cebba4b6d07b402f7b4ede293dbf6ddb6c51a28039ce58598aae1e9baf8f2489d893afe31412a5133b45ab3685364eb34eea2a298ce65f8ee5f1f5e871e1de6009fe2b8d5761f214464520b6a5c010df61407c1e3970d5e25f89bf69882c177d5128b35bd385068d3ddbd1004ac6774e6d7743fbe763869d9a60b42e6b7bbb97590d40f59037720ef76a8f8e3bf7d82043710c8e066e87b0a97313c66cb99b4c6d649cda79d72ee22adaa87ae486d6f2f2727daee41f9dec8bdd52078fdd60586923001f6391b5820920abdfd0",
+    "Issuer": "ApiService",
+    "Audience": "Subscribers",
+    "ExpirationMinutes": 60
   }
 }

@@ -1,6 +1,11 @@
 # RamandTechProject
+💡 **Built With**:
+- C#
+- ASP.NET Core
+- RabbitMQ
+  
 در اولین قدم کوئری ها و استور پروسیجر های زیر را لطفا اجرا نمایید
-
+```sql
 Create TABLE Users (
     Id INT PRIMARY KEY IDENTITY,
     Username NVARCHAR(50) NOT NULL,
@@ -66,6 +71,7 @@ BEGIN
     WHERE Id = @Id;
 END
 GO
+```
 
 در قدم دوم در فایل appsetting مقادیر RabbitMq و ConnectionStirng را تنظیم نموده
 همینطور در پروژه RabbitConsume در فایل RabbitMqService مقادیر را برای کانکشن ربیت خود کانفیگ کنید

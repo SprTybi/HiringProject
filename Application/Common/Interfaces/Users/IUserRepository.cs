@@ -6,6 +6,7 @@ namespace Application.Common.Interfaces.Users
     public interface IUserRepository
     {
         Task<Result_VM<User>> GetUserByEmail(string email);
+        Task<Result_VM<User>> GetUserById(int id);
         Task<Result_VM<IEnumerable<User>>> GetUsers();
     }
 }

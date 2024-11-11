@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Authentication\Command\" />
+	  <Folder Include="Features\RabbitMQ\Query\" />
 	  <Folder Include="Features\Users\Command\" />
 	</ItemGroup>
 

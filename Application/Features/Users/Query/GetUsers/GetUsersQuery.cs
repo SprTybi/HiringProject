@@ -2,7 +2,7 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Authentication.Query.Login;
+namespace Application.Features.Users.Query.GetUsers;
 
 public record GetUsersQuery() : IRequest<Result_VM<List<User>>>;
 

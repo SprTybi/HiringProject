@@ -1,15 +1,16 @@
 using ApiService;
 using Application;
+using Application.Features.RabbitMQ.Command;
 using Infrastructure;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services
             .AddPresentation()
             .AddApplication()
             .AddInfrastructure(builder.Configuration);
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProducerApi", Version = "v1" });
@@ -33,20 +34,13 @@ builder.Services.AddSwaggerGen(c =>
         new string[] { }
     }});
 });
-
-
-
 builder.Services.AddEndpointsApiExplorer();
 
+builder.WebHost.UseUrls("https://localhost:1949");
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseRouting();

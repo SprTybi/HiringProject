@@ -9,32 +9,24 @@ public class LoginQueryHandler :
     IRequestHandler<LoginQuery, Result_VM<string>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
-    private readonly IUserRepository _userRepository;
+    private readonly IAuthRepository _authRepository;
 
-    public LoginQueryHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator)
+    public LoginQueryHandler(IJwtTokenGenerator jwtTokenGenerator, IAuthRepository authRepository)
     {
-        _userRepository = userRepository;
         _jwtTokenGenerator = jwtTokenGenerator;
+        _authRepository = authRepository;
     }
 
     public async Task<Result_VM<string>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetUserByEmail(query.Email);
+        var hashedPassword = Hash.HashPassword(query.Password);
+        var user = await _authRepository.Authenticate(query.Email,hashedPassword);
         if (user.Result is null)
         {
             return new()
             {
                 Code = -1,
-                Message = "User not found",
-            };
-        }
-        var hashedPassword = Hash.HashPassword(query.Password);
-        if (user.Result.PasswordHash != hashedPassword)
-        {
-            return new()
-            {
-                Code = -1,
-                Message = "Username or Password is wrong",
+                Message = user.Message,
             };
         }
         var token = _jwtTokenGenerator.GenerateToken(user.Result);

@@ -9,6 +9,7 @@ using Application.Common.Interfaces.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Common.Interfaces.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Application.Common.Interfaces.RabbitMQ;
 
 namespace Infrastructure;
 
@@ -29,6 +30,8 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAuthRepository, AuthRepository>();
+        services.AddSingleton<IRabbitMqService, RabbitMqService>();
 
         return services;
     }
@@ -54,16 +57,19 @@ public static class DependencyInjection
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
+            .AddJwtBearer(options =>
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = JwtSetting.Issuer,
-                ValidAudience = JwtSetting.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = JwtSetting.Issuer,
+                    ValidAudience = JwtSetting.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(JwtSetting.Secret))
+                };
             });
         return services;
     }

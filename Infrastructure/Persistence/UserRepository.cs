@@ -42,6 +42,34 @@ public class UserRepository : IUserRepository
             }
         }
     }
+
+    public async Task<Result_VM<User>> GetUserById(int id)
+    {
+        using (var db = _context.CreateConnection())
+        {
+            try
+            {
+                var result = await db.QueryFirstOrDefaultAsync<User>("spGetUserById",
+                    new { id },
+                    commandType: CommandType.StoredProcedure
+                    );
+                return new()
+                {
+                    Code = 0,
+                    Result = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new()
+                {
+                    Code = -1,
+                    Message = $"User with this id not found {ex}"
+                };
+            }
+        }
+    }
+
     public async Task<Result_VM<IEnumerable<User>>> GetUsers()
     {
         using (var db = _context.CreateConnection())

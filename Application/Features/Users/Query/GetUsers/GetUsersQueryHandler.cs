@@ -3,7 +3,7 @@ using Application.Common.Interfaces.Users;
 using Application.Common.Models;
 using Domain.Entities;
 using MediatR;
-namespace Application.Features.Authentication.Query.Login;
+namespace Application.Features.Users.Query.GetUsers;
 
 public class GetUsersQueryHandler :
     IRequestHandler<GetUsersQuery, Result_VM<List<User>>>
